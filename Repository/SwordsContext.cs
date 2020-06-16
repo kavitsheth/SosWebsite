@@ -35,14 +35,23 @@ namespace SosWebsite.Repository
           {
             output.Add(new Product
             {
-
+                ProductId = reader.GetString(0).Trim()?? default,
+                Description = reader.GetString(1).Trim()?? default,
+                Size = reader.GetString(2).Trim()?? default,
+                CaseSize = reader.GetInt32(3),
+                ExpiryDate = reader.IsDBNull(4) ? default : reader.GetDateTime(4),
+                Barcode = reader.GetString(5).Trim()?? default,
+                FreeStock = (short)reader.GetDecimal(6),
+                Stock = (short)reader.GetDecimal(7),
+                AllocatedStock = (short)reader.GetDecimal(8),
+                StockOnOrder = (short)reader.GetDecimal(9)
             });
           }
         }
       }
-      catch (Exception)
+      catch (Exception ex)
       {
-
+          throw ex;
       }
       finally
       {

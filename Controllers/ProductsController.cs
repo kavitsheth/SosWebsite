@@ -3,6 +3,7 @@ using SosWebsite.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using SosWebsite.Repository;
+using System.Linq;
 
 namespace SosWebsite.Controllers
 {
@@ -12,7 +13,7 @@ namespace SosWebsite.Controllers
   {
 
     private ISwordsRepository<Product, string> _repository;
-    public ProductsController(ISwordsRepository<Product,string> repository)
+    public ProductsController(ISwordsRepository<Product, string> repository)
     {
       _repository = repository;
     }
@@ -20,14 +21,16 @@ namespace SosWebsite.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetAllAsync()
     {
-      return Ok();
+      var products = await _repository.GetAllAsync();
+      return Ok(products);
     }
 
 
-    [HttpGet("{id")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetByIdAsync(string id)
     {
-      return Ok();
+      var product = await _repository.GetByIdAsync(id);
+      return Ok(product);
     }
   }
 }

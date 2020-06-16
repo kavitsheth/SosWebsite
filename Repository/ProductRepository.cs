@@ -1,34 +1,30 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SosWebsite.Models;
+using System.Linq;
 
 namespace SosWebsite.Repository
 {
   public class ProductRepository : ISwordsRepository<Product, string>
   {
-    public Task Delete(string id)
+    public async Task<IEnumerable<Product>> GetAllAsync()
     {
-      throw new System.NotImplementedException();
+      var products = await SwordsContext.GetProductsAsync();
+      return products;
     }
 
-    public Task<IEnumerable<Product>> GetAll()
+    public async Task<Product> GetByIdAsync(string id)
     {
-      throw new System.NotImplementedException();
+      var products = await SwordsContext.GetProductsAsync();
+      var product = products.FirstOrDefault(p => p.ProductId == id);
+      return product;
     }
 
-    public Task<Product> GetById(string id)
-    {
-      throw new System.NotImplementedException();
-    }
+    public Task Insert(Product entity) => throw new System.NotImplementedException();
 
-    public Task Insert(Product entity)
-    {
-      throw new System.NotImplementedException();
-    }
+    public Task Update(Product entity) => throw new System.NotImplementedException();
 
-    public Task Update(Product entity)
-    {
-      throw new System.NotImplementedException();
-    }
+    public Task Delete(string id) => throw new System.NotImplementedException();
+
   }
 }
